@@ -67,8 +67,8 @@ require 'auth.php';
 					<img src="img/logo.png" class="image" alt="" width="100%" height="200px" style="object-fit: contain;" />
 					<p class="text-left">E-Learning SDN paulan colomadu Berbasis Web</p>
 				</div>
-				<h3>Belum Punya Akun ?</h3>
-				<button class="btn transparent" id="sign-up-btn">Daftar</button>
+				<!-- <h3>Belum Punya Akun ?</h3>
+				<button class="btn transparent" id="sign-up-btn">Daftar</button> -->
 
 				<img src="img/log.svg" class="image" alt="" />
 			</div>
