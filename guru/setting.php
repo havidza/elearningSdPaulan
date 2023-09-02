@@ -1,10 +1,10 @@
 <?php
-    require '../koneksi.php';
-    require 'function/session.php';
-    require 'function/statusBox.php';
-    $sqlUser = "SELECT * FROM user WHERE id=$id";
-    $query = mysqli_query($koneksi, $sqlUser);
-    $row = mysqli_fetch_array($query)
+require '../koneksi.php';
+require 'function/session.php';
+require 'function/statusBox.php';
+$sqlUser = "SELECT * FROM user WHERE id=$id";
+$query = mysqli_query($koneksi, $sqlUser);
+$row = mysqli_fetch_array($query)
 ?>
 
 <!DOCTYPE html>
@@ -20,11 +20,12 @@
 </head>
 
 <body>
-<!-- Sidebar -->
-<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="d-flex" id="wrapper">
         <div class="bg-3" id="sidebar-wrapper">
             <div class="sidebar-heading text-center py-4 warna-1 fs-4 fw-bold text-uppercase">
-            <i class="fas fa-book me-2"></i>E-Learning</div>
+                <i class="fas fa-book me-2"></i>E-Learning
+            </div>
             <div class="list-group list-group-flush my-3">
                 <a href="index.php" class="list-group-item list-group-item-action bg-transparent warna-1 fw-bold">
                     <i class="fas fa-tachometer-alt me-2"></i>Beranda</a>
@@ -36,14 +37,15 @@
                     <i class="fas fa-chart-bar me-2"></i>Nilai</a>
                 <a href="siswa.php" class="list-group-item list-group-item-action bg-transparent warna-1 fw-bold">
                     <i class="fas fa-users-cog me-2"></i>Kelola Siswa</a>
+                <a href="raport.php" class="list-group-item list-group-item-action bg-transparent warna-1 fw-bold">
+                    <i class="fas fa-book me-2"></i>Raport Siswa</a>
                 <a href="setting.php" class="list-group-item list-group-item-action bg-transparent warna-1 fw-bold active-bar">
                     <i class="fas fa-users-cog me-2"></i>Pengaturan Akun</a>
-                <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"
-                onclick="return confirm('Keluar ?')">
+                <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold" onclick="return confirm('Keluar ?')">
                     <i class="fas fa-power-off me-2"></i>Keluar</a>
             </div>
         </div>
-<!-- Status Bar -->
+        <!-- Status Bar -->
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-2 py-4 px-4">
                 <div class="d-flex align-items-center">
@@ -70,8 +72,7 @@
                                 <h3 class="fs-2"><?php echo $rowTugas ?></h3>
                                 <p class="fs-5 fw-bold">Tugas</p>
                             </div>
-                            <i
-                                class="fas fa-tasks fs-1 warna-1 rounded-full bg-2 p-3"></i>
+                            <i class="fas fa-tasks fs-1 warna-1 rounded-full bg-2 p-3"></i>
                         </div>
                     </div>
 
@@ -86,7 +87,7 @@
                     </div>
                 </div>
                 <hr class="bg-white hr">
-<!-- Content -->
+                <!-- Content -->
                 <div class="row text-center">
                     <div class="col mx-3">
                         <h2 class="h2 text-dark mb-4">Biodata Diri</h2>
@@ -95,42 +96,43 @@
                 <div class="row justify-content-center pb-5">
                     <div class="col-xxl-5">
                         <?php
-                            echo '
-                            <form action="function/updateUser.php?id='.$row['id'].'" method="post" class="text-center mx-5">
-                                <input type="hidden" name="id" class="form-control" value="'.$row['id'].'" readonly>
-                                <input type="text" name="nama" class="form-control m-3 justify-content-center" value="'.$row['nama'].'" readonly>
-                                <input type="text" name="nip" class="form-control m-3" value="'.$row['nip'].'" readonly>
-                                <input type="text" name="jk" class="form-control m-3" value="'.$row['jk'].'" readonly>
-                                <textarea name="alamat" class="form-control m-3" readonly>'.$row['alamat'].'</textarea>
-                                <input type="text" name="wa" class="form-control m-3" value="'.$row['wa'].'" readonly>
+                        echo '
+                            <form action="function/updateUser.php?id=' . $row['id'] . '" method="post" class="text-center mx-5">
+                                <input type="hidden" name="id" class="form-control" value="' . $row['id'] . '" readonly>
+                                <input type="text" name="nama" class="form-control m-3 justify-content-center" value="' . $row['nama'] . '" readonly>
+                                <input type="text" name="nip" class="form-control m-3" value="' . $row['nip'] . '" readonly>
+                                <input type="text" name="jk" class="form-control m-3" value="' . $row['jk'] . '" readonly>
+                                <textarea name="alamat" class="form-control m-3" readonly>' . $row['alamat'] . '</textarea>
+                                <input type="text" name="wa" class="form-control m-3" value="' . $row['wa'] . '" readonly>
                                 <label class="form-label">Ubah Password ?</label>
                                 <input type="password" name="password1" class="form-control m-3" placeholder="Masukan Password Lama">
                                 <input type="password" name="password2" class="form-control m-3" placeholder="Masukan Password Baru">
-                                '?><button type="submit" class="btn btn-primary px-5" onclick="return confirm('Proses data akun?')">Simpan</button><?php echo '
+                                ' ?><button type="submit" class="btn btn-primary px-5" onclick="return confirm('Proses data akun?')">Simpan</button><?php echo '
                             </form>
                             '
-                        ?>
+                                                                                                                                                    ?>
                     </div>
                 </div>
             </div>
-<!-- Footer -->
-            <footer class="footer mt-auto pb-4 bg-transparant fixed-bottom">   
+            <!-- Footer -->
+            <footer class="footer mt-auto pb-4 bg-transparant fixed-bottom">
                 <div class="container-fluid">
                     <span class="text-muted">NUSA MANDIRI &copy 2023</span>
                 </div>
             </footer>
         </div>
     </div>
-<!-- Javascript -->
+    <!-- Javascript -->
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
 
-        toggleButton.onclick = function () {
+        toggleButton.onclick = function() {
             el.classList.toggle("toggled");
         };
     </script>
 </body>
+
 </html>

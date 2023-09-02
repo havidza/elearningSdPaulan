@@ -1,12 +1,12 @@
 <?php
-    require '../koneksi.php';
-    require 'function/session.php';
-    require 'function/statusBox.php';
-    require 'function/tambahMateri.php';
-    require 'function/updateMateri.php';
-    $query = mysqli_query($koneksi, "SELECT *, user.nama AS nama_guru, materi.id AS id_materi 
+require '../koneksi.php';
+require 'function/session.php';
+require 'function/statusBox.php';
+require 'function/tambahMateri.php';
+require 'function/updateMateri.php';
+$query = mysqli_query($koneksi, "SELECT *, user.nama AS nama_guru, materi.id AS id_materi 
     FROM materi JOIN user ON materi.id_guru = user.id WHERE materi.id_guru = $id ORDER BY materi.id DESC");
-    // var_dump(mysqli_fetch_array($query));
+// var_dump(mysqli_fetch_array($query));
 ?>
 
 <!DOCTYPE html>
@@ -24,11 +24,12 @@
 </head>
 
 <body>
-<!-- Sidebar -->
+    <!-- Sidebar -->
     <div class="d-flex" id="wrapper">
         <div class="bg-3" id="sidebar-wrapper">
             <div class="sidebar-heading text-center py-4 warna-1 fs-4 fw-bold text-uppercase">
-            <i class="fas fa-book me-2"></i>E-Learning</div>
+                <i class="fas fa-book me-2"></i>E-Learning
+            </div>
             <div class="list-group list-group-flush my-3">
                 <a href="index.php" class="list-group-item list-group-item-action bg-transparent fw-bold warna-1">
                     <i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
@@ -40,14 +41,15 @@
                     <i class="fas fa-chart-bar me-2"></i>Nilai Siswa</a>
                 <a href="siswa.php" class="list-group-item list-group-item-action bg-transparent warna-1 fw-bold">
                     <i class="fas fa-users-cog me-2"></i>Kelola Siswa</a>
+                <a href="raport.php" class="list-group-item list-group-item-action bg-transparent warna-1 fw-bold">
+                    <i class="fas fa-book me-2"></i>Raport Siswa</a>
                 <a href="setting.php" class="list-group-item list-group-item-action bg-transparent warna-1 fw-bold">
                     <i class="fas fa-users-cog me-2"></i>Pengaturan Akun</a>
-                <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"
-                onclick="return confirm('Keluar ?')">
+                <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold" onclick="return confirm('Keluar ?')">
                     <i class="fas fa-power-off me-2"></i>Keluar</a>
             </div>
         </div>
-<!-- Status Bar -->
+        <!-- Status Bar -->
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-2 py-4 px-4">
                 <div class="d-flex align-items-center">
@@ -88,7 +90,7 @@
                     </div>
                 </div>
                 <hr class="bg-white hr">
-<!-- Upload -->
+                <!-- Upload -->
                 <div class="row my-5">
                     <!-- Button trigger modal Upload -->
                     <button type="button" class="btn btn-primary btnInput mx-auto mb-3" data-bs-toggle="modal" data-bs-target="#uploadMateri">
@@ -96,64 +98,64 @@
                     </button>
                     <!-- Modal Upload -->
                     <form action="" method="post" enctype="multipart/form-data">
-                    <div class="modal fade" id="uploadMateri" tabindex="-1" aria-labelledby="uploadMateri" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Upload Materi</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <ul style="list-style-type: none;">
-                                        <li>
-                                            <label for="file" class="me-3 fw-bold">Pilih File Materi</label>
-                                            <input type="file" name="file" id="file" class="mb-2 form-control w-75">
-                                        </li>
-                                        <li>
-                                            <label for="judul" class="fw-bold">Judul Materi</label>
-                                            <input type="text" name="judul" id="judul" class="w-75 form-control w-75">
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" name="uploadFile">Upload Materi</button>
+                        <div class="modal fade" id="uploadMateri" tabindex="-1" aria-labelledby="uploadMateri" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Upload Materi</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul style="list-style-type: none;">
+                                            <li>
+                                                <label for="file" class="me-3 fw-bold">Pilih File Materi</label>
+                                                <input type="file" name="file" id="file" class="mb-2 form-control w-75">
+                                            </li>
+                                            <li>
+                                                <label for="judul" class="fw-bold">Judul Materi</label>
+                                                <input type="text" name="judul" id="judul" class="w-75 form-control w-75">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="uploadFile">Upload Materi</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </form>
                     <!-- Modal Edit -->
                     <form action="" method="post" enctype="multipart/form-data">
-                    <div class="modal fade" id="editMateri" tabindex="-1" aria-labelledby="editMateri" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Edit Materi</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <ul style="list-style-type: none;">
-                                        <input type="hidden" name="id_materi" id="id_materi_edit">
-                                        <li>
-                                            <label for="file" class="me-3 fw-bold">Pilih File Materi</label>
-                                            <input type="file" name="file" id="file" class="mb-2 form-control w-75" required>
-                                        </li>
-                                        <li>
-                                            <label for="judul" class="fw-bold">Judul Materi</label>
-                                            <input type="text" name="judul" id="judul_materi_edit" class="w-75 form-control w-75">
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" name="editFileMateri">Edit Materi</button>
+                        <div class="modal fade" id="editMateri" tabindex="-1" aria-labelledby="editMateri" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Edit Materi</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul style="list-style-type: none;">
+                                            <input type="hidden" name="id_materi" id="id_materi_edit">
+                                            <li>
+                                                <label for="file" class="me-3 fw-bold">Pilih File Materi</label>
+                                                <input type="file" name="file" id="file" class="mb-2 form-control w-75" required>
+                                            </li>
+                                            <li>
+                                                <label for="judul" class="fw-bold">Judul Materi</label>
+                                                <input type="text" name="judul" id="judul_materi_edit" class="w-75 form-control w-75">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="editFileMateri">Edit Materi</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </form>
-<!-- Content -->
+                    <!-- Content -->
                     <div class="table-responsive-xxl">
                         <table id="myTable" class="table table-bordered border-primary align-middle text-center  mx-auto" style="min-width: 1000px;">
                             <thead class="table-dark border-light">
@@ -168,48 +170,48 @@
                             </thead>
                             <tbody class="table-light border-dark">
                                 <?php
-                                    $no = 1;
-                                  
-                                    while ($row = mysqli_fetch_array($query)){
-                                      echo '
+                                $no = 1;
+
+                                while ($row = mysqli_fetch_array($query)) {
+                                    echo '
                                       <tr>
-                                        <td>'.$no++.'</td>
-                                        <td>'.$row['nama_guru'].'</td>
-                                        <td>'.$row['judul_materi'].'</td>
-                                        <td>'.$row['file_materi'].'</td>
-                                        <td>'.$row['tgl_dibuat'].'</td>
+                                        <td>' . $no++ . '</td>
+                                        <td>' . $row['nama_guru'] . '</td>
+                                        <td>' . $row['judul_materi'] . '</td>
+                                        <td>' . $row['file_materi'] . '</td>
+                                        <td>' . $row['tgl_dibuat'] . '</td>
                                         <td>
                                           <div class="d-flex justify-content-around">
-                                            <form action="function/lihatMateri.php?file_materi='.$row['file_materi'].'" method="post">
+                                            <form action="function/lihatMateri.php?file_materi=' . $row['file_materi'] . '" method="post">
                                               <button type="submit" class="btn btn-success"><i class="fas fa-download"></i></button>
                                             </form>
                                             <a href="#" 
-                                            data-id="'.$row['id_materi'].'"
-                                            data-judul="'.$row['judul_materi'].'"
+                                            data-id="' . $row['id_materi'] . '"
+                                            data-judul="' . $row['judul_materi'] . '"
                                             onclick="openModalEdit(this);"
                                             class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form action="function/hapusMateri.php?id='.$row['id_materi'].'" method="post">
-                                              '?><button type="submit" class="btn btn-danger" onclick="return confirm('Hapus materi?')"><i class="fas fa-trash"></i></button><?php echo '
+                                            <form action="function/hapusMateri.php?id=' . $row['id_materi'] . '" method="post">
+                                              ' ?><button type="submit" class="btn btn-danger" onclick="return confirm('Hapus materi?')"><i class="fas fa-trash"></i></button><?php echo '
                                             </form> 
                                           </div>  
                                         </td>
                                       </tr>';
-                                    }
-                                ?>
+                                                                                                                                                                            }
+                                                                                                                                                                                ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-<!-- Footer -->
-            <footer class="footer mt-auto pb-4 bg-transparant fixed-bottom">   
+            <!-- Footer -->
+            <footer class="footer mt-auto pb-4 bg-transparant fixed-bottom">
                 <div class="container-fluid">
                     <span class="text-muted">NUSA MANDIRI &copy 2023</span>
                 </div>
             </footer>
         </div>
     </div>
-<!-- Javascript -->
+    <!-- Javascript -->
     <script src="https://code.jquery.com/jquery-3.7.0.js" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js" type="text/javascript"></script>
@@ -219,21 +221,21 @@
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
 
-        toggleButton.onclick = function () {
+        toggleButton.onclick = function() {
             el.classList.toggle("toggled");
         };
 
         $('#myTable').DataTable();
 
-        function openModalEdit(e){
-          var id = e.getAttribute('data-id');
-          var judul = e.getAttribute('data-judul');
-          console.log(id);
-          $('#editMateri').modal('show');
-          $('#id_materi_edit').val(id);
-          $('#judul_materi_edit').val(judul);
+        function openModalEdit(e) {
+            var id = e.getAttribute('data-id');
+            var judul = e.getAttribute('data-judul');
+            console.log(id);
+            $('#editMateri').modal('show');
+            $('#id_materi_edit').val(id);
+            $('#judul_materi_edit').val(judul);
         }
-
     </script>
 </body>
+
 </html>

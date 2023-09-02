@@ -43,7 +43,10 @@ $query = mysqli_query($koneksi, $sqlUser);
                 <a href="nilai.php" class="list-group-item list-group-item-action bg-transparent warna-1 fw-bold">
                     <i class="fas fa-chart-bar me-2"></i>Nilai Siswa</a>
                 <a href="siswa.php" class="list-group-item list-group-item-action bg-transparent warna-1 fw-bold active-bar">
+
                     <i class="fas fa-users-cog me-2"></i>Kelola Siswa</a>
+                <a href="raport.php" class="list-group-item list-group-item-action bg-transparent warna-1 fw-bold">
+                    <i class="fas fa-book me-2"></i>Raport Siswa</a>
                 <a href="setting.php" class="list-group-item list-group-item-action bg-transparent warna-1 fw-bold">
                     <i class="fas fa-users-cog me-2"></i>Pengaturan Akun</a>
                 <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold" onclick="return confirm('Keluar ?')">
