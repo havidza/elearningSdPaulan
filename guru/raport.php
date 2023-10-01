@@ -22,6 +22,7 @@ WHERE user.role = 'Siswa' AND kelas.nama = '$nama_kelass'");
 // var_dump(mysqli_fetch_array($query));
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -120,36 +121,8 @@ WHERE user.role = 'Siswa' AND kelas.nama = '$nama_kelass'");
                                 </tr>
                             </thead>
                             <tbody class="table-light border-dark">
-                                <?php
-                                $no = 1;
-
-                                while ($row = mysqli_fetch_array($query)) {
-                                    $q1 = mysqli_query($koneksi, "SELECT judul, id_materi FROM TUGAS where id='$row[id_tugas]'");
-                                    $row1 = mysqli_fetch_assoc($q1);
-
-                                    $q2 = mysqli_query($koneksi, "SELECT judul_materi FROM materi where id='$row1[id_materi]'");
-                                    $row2 = mysqli_fetch_assoc($q2);
 
 
-
-                                    echo '
-                                      <tr>
-                                        <td>' . $no++ . '</td>
-                                        <td>' . $row['nama_siswa'] . '</td>
-                                        <td>' . $row['nama_kelas'] . '</td>
-                                        <td>' . $row2['judul_materi'] . '</td>
-                                        <td>' . $row1['judul'] . '</td>
-                                        <td>' . $row['nilai'] . '</td>
-                                        <td>
-                                          <div class="d-flex justify-content-around">
-                                            <a href="function/printRaport.php?id=' . $row['id_user'] . '" target="_blank"
-                                            class="btn btn-warning"><i class="fas fa-book"></i></a>
-                                              ' ?><?php echo '
-                                          </div>  
-                                        </td>
-                                      </tr>';
-                                                }
-                                                    ?>
                             </tbody>
                         </table>
                     </div>
@@ -169,6 +142,9 @@ WHERE user.role = 'Siswa' AND kelas.nama = '$nama_kelass'");
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -177,15 +153,73 @@ WHERE user.role = 'Siswa' AND kelas.nama = '$nama_kelass'");
             el.classList.toggle("toggled");
         };
 
-        $('#myTable').DataTable();
+        // $('#myTable').DataTable();
 
-        function openModalEdit(e) {
-            var id = e.getAttribute('data-id');
-            var judul = e.getAttribute('data-judul');
-            console.log(id);
-            $('#editMateri').modal('show');
-            $('#id_materi_edit').val(id);
-            $('#judul_materi_edit').val(judul);
+        toastr.options = {
+
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        $(function() {
+            var table = $('#myTable').DataTable({
+                "ajax": {
+                    "url": "function/dataMenuRaport.php",
+                    "method": "POST",
+                    "data": {},
+                    "dataSrc": 'result'
+                },
+                "responsive": true,
+                "columns": [{
+                    "data": "no"
+                }, {
+                    "data": "nama_siswa"
+                }, {
+                    "data": "nama_kelas"
+                }, {
+                    "data": "judul_materi"
+                }, {
+                    "data": "judul"
+                }, {
+                    "data": "nilai"
+                }, {
+                    "data": "aksi_rek"
+                }, ]
+            });
+        })
+
+        function printData(id_user) {
+            // console.log(id_user);
+            $.ajax({
+                type: "POST",
+                url: "function/printRaport.php",
+                data: {
+                    id: id_user
+                },
+                success: function(result) {
+                    // var data = eval('(' + data + ')');
+                    console.log(result)
+                    if (result === 'not_found') {
+                        toastr.error("Gagal cetak !", 'Error');
+                    } else {
+                        window.open('./../pdf/' + result + '.pdf', '_blink');
+                    }
+
+                }
+            });
         }
     </script>
 </body>
